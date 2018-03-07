@@ -38,7 +38,12 @@ int main(int argv, char **argc)
     }
 
 	parseConfigFile(config_path);
-	startBrowser(bookmarkLinks[rofiMenu()]);
+
+	int entry = rofiMenu();
+	if(entry != -1)
+	{
+		startBrowser(bookmarkLinks[entry]);
+	}
 
     return 0;
 }
@@ -166,9 +171,7 @@ int rofiMenu() {
 		}
 	}
 
-	//Should not get here
-	printf("Error:");
-	exit(0);
+	return -1;
 }
 
 void startBrowser(char *url)

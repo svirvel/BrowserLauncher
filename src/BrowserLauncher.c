@@ -179,18 +179,15 @@ int rofiMenu() {
 
 void startBrowser(char *url)
 {
-	char *browser = "firefox ";
 	char *command;
-	if((command = (char *) malloc(strlen(browser) + strlen(url))) == NULL)
+	if((command = (char *) malloc(strlen("xdg-open ") + strlen(url))) == NULL)
 	{
 		printf("ERROR: malloc failed.\n");
 		exit(0);
 	}
-	command[0] = '\0';
 
-	command = strcat(command, browser);
+	command = strcpy(command, "xdg-open ");
 	command = strcat(command, url);
-	printf("%s", command);
 
 	system(command);
 	free(command);

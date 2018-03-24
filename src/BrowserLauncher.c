@@ -7,13 +7,16 @@ int storedLinks = 0;
 int main(int argv, char **argc)
 {
 	char *config_path;
+	char *homeDir = getenv("HOME");
+	char *defaultLocationInHome = "/.config/BrowserLauncher/config";
 
     switch(argv)
     {
-        case 1:
+		case 1:
             // Use default path
-            config_path = (char *) malloc(LENGTH_DEFAULT_CONFIG_PATH*sizeof(char));
-            strcpy(config_path, DEFAULT_CONFIG_PATH);
+			config_path = (char *) malloc((strlen(homeDir)+strlen(defaultLocationInHome))*sizeof(char));
+            strcpy(config_path, homeDir);
+			strcat(config_path, defaultLocationInHome);
             break;
 
         case 2:

@@ -7,9 +7,6 @@
 #include <string.h>
 
 //Configuration
-#define DEFAULT_CONFIG_PATH "~/.config/BrowserLauncher/config"
-#define LENGTH_DEFAULT_CONFIG_PATH 33
-
 #define MAX_ENTRIES 15
 #define MAX_LINK_LENGTH 120
 #define MAX_NAME_LENGTH 20

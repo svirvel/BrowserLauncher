@@ -63,8 +63,9 @@ void parseConfigFile(char* path)
 	fp = fopen(path, "r");
 
 	if(fp == NULL) {
-	    printf("Error while opening file: %s\n", path);
-	    exit(1);
+		fprintf(stderr, "Error: Openening file %s: ", path);
+		perror("");
+	    exit(EXIT_FAILURE);
 	}
 	else
 	{
@@ -90,8 +91,8 @@ void parseConfigFile(char* path)
 					}
 					else
 					{
-						printf("ERROR: Link name on line: %d, in file: %s is to long.\n", line, path);
-						exit(1);
+						fprintf(stderr,"Error: Link name on line: %d, in file: %s is to long.\n", line, path);
+						exit(EXIT_FAILURE);
 					}
 					charBuffer = getc(fp);
 				}
@@ -112,7 +113,7 @@ void parseConfigFile(char* path)
 						bookmarkLinks[storedLinks][charCounter++] = charBuffer;
 					}
 					else {
-						printf("ERROR: Link on line %d, in config file %s is to long.\n", line, path);
+						fprintf(stderr, "Error: Link on line %d, in config file %s is to long.\n", line, path);
 					}
 					charBuffer = getc(fp);
 				}
@@ -120,7 +121,7 @@ void parseConfigFile(char* path)
 
 				if(++storedLinks == MAX_ENTRIES)
 				{
-					printf("ERROR: On line: %d, in file %s.\nTo many entries.\n", line, path);
+					fprintf(stderr, "Error: On line: %d, in file %s.\nTo many entries.\n", line, path);
 				}
 
 				line++;
@@ -129,16 +130,17 @@ void parseConfigFile(char* path)
 	}
 }
 
-int rofiMenu() {
-
+int rofiMenu()
+{
 	char *commandFirst = "echo -e \"";
 	char *commandLast = "\" | rofi -dmenu -p Sites";
 	char *command;
 
 	if((command = (char *) malloc(strlen(commandFirst) + strlen(commandLast) + MAX_NAME_LENGTH*storedLinks)) == NULL)
 	{
-		printf("ERROR: malloc failed.\n");
-		exit(0);
+		fprintf(stderr, "Error: Malloc failed: ");
+		perror("");
+		exit(EXIT_FAILURE);
 	}
 
 	command[0] = '\n';
@@ -156,7 +158,8 @@ int rofiMenu() {
 
 	fp = popen(command, "r");
 	if(fp == NULL) {
-		printf("ERORR: Failed to run command");
+		fprintf(stderr, "Error: Failed to run command: ");
+		perror("");
 	}
 
 	free(command);
@@ -182,8 +185,9 @@ void startBrowser(char *url)
 	char *command;
 	if((command = (char *) malloc(strlen("xdg-open ") + strlen(url))) == NULL)
 	{
-		printf("ERROR: malloc failed.\n");
-		exit(0);
+		printf("Error: Malloc failed: ");
+		perror("");
+		exit(EXIT_FAILURE);
 	}
 
 	command = strcpy(command, "xdg-open ");

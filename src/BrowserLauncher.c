@@ -133,7 +133,7 @@ void parseConfigFile(char* path)
 int rofiMenu()
 {
 	char *commandFirst = "echo -e \"";
-	char *commandLast = "\" | rofi -dmenu -p Sites";
+	char *commandLast = "\" | rofi -dmenu -i -p Sites";
 	char *command;
 
 	if((command = (char *) malloc(strlen(commandFirst) + strlen(commandLast) + MAX_NAME_LENGTH*storedLinks)) == NULL)
